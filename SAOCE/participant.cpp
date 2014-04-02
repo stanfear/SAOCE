@@ -30,6 +30,12 @@ int Participant::GetAvailablesPlacesCount()
     return _availablesPlacesCount;
 }
 
+
+void Participant::AddDisponnibility(Disponibility* dispo)
+{
+    _disponibilities->append(dispo);
+}
+
 std::string Participant::ToString()
 {
     std::string separator = " - ";

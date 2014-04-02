@@ -15,6 +15,8 @@ public:
     int GetAvailablesPlacesCount();
     std::string ToString();
 
+    void AddDisponnibility(Disponibility*);
+
     private:
         QString _name;
         QString _lastName;

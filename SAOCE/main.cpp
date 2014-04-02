@@ -41,8 +41,7 @@ int main(int argc, char *argv[])
 
     Disponibility * dispoTristan = new Disponibility(adresseTristan, timedispo, timedispo);
 
-    //@TODO générer constructeur et assignateur
-    //P1->AddDisponnibility(dispoTristan);
+    P1->AddDisponnibility(dispoTristan);
 
 
 

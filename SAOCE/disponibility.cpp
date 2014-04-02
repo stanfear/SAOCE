@@ -6,7 +6,7 @@
 Disponibility::Disponibility(QGeoAddress address, time_t intervalStart, time_t intervalEnd) :
     _address(address), _disponnibilityIntervalStart(intervalStart), _disponnibilityIntervalEnd(intervalEnd)
 {
-    std::clog << "Disponnibilité : Instantiating" ;
+    std::clog << "Disponnibilite : Instantiating " ;
     std::clog << address.text().toUtf8().constData() << " - ";
 
 
@@ -22,4 +22,6 @@ Disponibility::Disponibility(QGeoAddress address, time_t intervalStart, time_t i
 
 Disponibility::~Disponibility()
 {
+    std::clog << "Disponnibilite : Start Destroying" ;
+    std::clog << _address.text().toUtf8().constData() << std::endl;
 }

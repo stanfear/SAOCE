@@ -1,5 +1,18 @@
 #include "association.h"
 
+Association::Association(Participant* driver,Participant* passenger)
+{
+    if(driver->HasCar())
+    {
+        _driver = driver;
+        _passenger = passenger;
+    }
+    else if(!_driver->HasCar() && _passenger->HasCar()) // le passager et conduteur ont été enregistrés dans le mauvais ordre
+    {
+        _driver = passenger;
+        _passenger = driver;
+    }
+}
 
 Association::~Association()
 {
@@ -17,7 +30,7 @@ double Association::GetCost()
 // Faux Sinon
 bool Association::IsValide()
 {
-    if(_driver->HasCar() && !_passenger->HasCar())
+    if(_driver->HasCar())
         return true;
     if(!_driver->HasCar() && _passenger->HasCar()) // le passager et conduteur ont été enregistrés dans le mauvais ordre
     {

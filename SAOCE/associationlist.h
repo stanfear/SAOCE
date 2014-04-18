@@ -7,6 +7,9 @@
 class AssociationList
 {
 public:
+
+    QList<Association*>* _list;
+
     AssociationList();
     ~AssociationList();
     double GetGeneralCost();
@@ -15,7 +18,6 @@ public:
     bool CreateAssociation(Participant*,Participant*);
 
 private:
-    QList<Association*>* _list;
 };
 
 #endif // ASSOCIATIONLIST_H

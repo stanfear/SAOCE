@@ -12,9 +12,9 @@ public:
 
     bool Add(Participant*);
 
+    QList<Participant*>* _list;
 
 private:
-    QList<Participant*>* _list;
 };
 
 #endif // PARTICIPANTSLIST_H

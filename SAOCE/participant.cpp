@@ -4,7 +4,7 @@
 Participant::Participant(QString name, QString lastName, int places) : _name(name), _lastName(lastName), _availablesPlacesCount(places)
 {
     _disponibilities = new QList<Disponibility*>();
-    std::clog << "Participant --> " << name.toUtf8().constData() << " - " << lastName.toUtf8().constData() << " : Instantiating\n";
+    std::clog << "Participant --> " << name.toUtf8().constData() << " - " << lastName.toUtf8().constData() << ", (" << places << " places disponnibles) : Instantiating\n";
 }
 
 Participant::~Participant()

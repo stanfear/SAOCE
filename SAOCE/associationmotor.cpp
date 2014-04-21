@@ -27,17 +27,24 @@ bool AssociationMotor::AddParticipant(Participant* participant)
 }
 
 /// permet de calculer la liste des associations possibles à l'avance afin d'accelerer le temps de calcul des associations
-void AssociationMotor::ComputeAssociationsValues()
+void AssociationMotor::ComputeAssociationsValues(QProgressDialog *progress)
 {
     _AssocDictionnary->clear();
 
-    for( int i=this->_PartList->_list->count()-1; i>=0; i--)
+    int nbparticipants = this->_PartList->_list->count();
+    progress->setMaximum(nbparticipants ^ 2);
+
+    for( int i=nbparticipants-1; i>=0; i--)
     {
+        progress->setValue((nbparticipants - i - 1) * nbparticipants);
+
         Participant *par1 = this->_PartList->_list->at(i);
         if(par1->HasCar())
         {
-            for( int j=this->_PartList->_list->count()-1; j>=0; j--)
+            for( int j=nbparticipants-1; j>=0; j--)
             {
+                progress->setValue((nbparticipants - i - 1) * nbparticipants + (nbparticipants - j - 1));
+
                 Participant *par2 = this->_PartList->_list->at(j);
                 if(par1 != par2)
                 {
@@ -52,11 +59,15 @@ void AssociationMotor::ComputeAssociationsValues()
 
 
 
-void AssociationMotor::ComputeAssociationsMethode1()
+void AssociationMotor::ComputeAssociationsMethode1(QProgressDialog *progress)
 {
     QList<Participant*>* Conducteurs = new QList<Participant*>();
     QList<Participant*>* passagersRestant = new QList<Participant*>();
     InitLists(Conducteurs, passagersRestant);
+
+    progress->setMaximum(passagersRestant->count());
+    progress->setValue(0);
+
 
     while (passagersRestant->count() > 0 && Conducteurs->count() > 0)
     {
@@ -79,10 +90,12 @@ void AssociationMotor::ComputeAssociationsMethode1()
         if(CountDriversAssociation(BestAssociaiton->GetDriver()) >= BestAssociaiton->GetDriver()->GetAvailablesPlacesCount())
             Conducteurs->removeOne(BestAssociaiton->GetDriver());
         passagersRestant->removeOne(BestAssociaiton->GetPassenger());
+
+        progress->setValue(progress->maximum() - passagersRestant->count());
     }
 }
 
-void AssociationMotor::ComputeAssociationsMethode2()
+void AssociationMotor::ComputeAssociationsMethode2(QProgressDialog *progress)
 {}
 
 bool AssociationMotor::IsGlobalAssociationPossible()
@@ -160,6 +173,7 @@ void AssociationMotor::InitLists(QList<Participant*> *conducteurs, QList<Partici
             if(CountDriversAssociation(par) < par->GetAvailablesPlacesCount())
                 conducteurs->append(par);
     }
+
 
     for( int i=this->_AssocList->_list->count()-1; i>=0; i--)
     {

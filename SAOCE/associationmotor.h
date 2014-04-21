@@ -4,6 +4,7 @@
 #include "participant.h"
 #include "participantslist.h"
 #include "associationlist.h"
+#include <QProgressDialog>
 
 class AssociationMotor
 {
@@ -16,18 +17,20 @@ public:
 
     bool AddParticipant(Participant*);
 
-    void ComputeAssociationsMethode1();
-    void ComputeAssociationsMethode2();
+    void ComputeAssociationsMethode1(QProgressDialog *progress);
+    void ComputeAssociationsMethode2(QProgressDialog *progress);
 
     bool IsGlobalAssociationPossible();
-    void ComputeAssociationsValues();
+    void ComputeAssociationsValues(QProgressDialog *progress);
+
+    void ResetAssociationList();
 
 private:
     ParticipantsList* _PartList;
     QList<Association*>* _AssocDictionnary;
 
     Association *findAssociation(Participant*, Participant*);
-    void ResetAssociationList();
+
     void InitLists(QList<Participant*>*, QList<Participant*>*);
     int CountDriversAssociation(Participant* participant);
 

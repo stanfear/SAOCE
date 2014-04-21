@@ -3,18 +3,19 @@
 
 #include <QObject>
 #include <QGeoAddress>
+#include <QTime>
 
 class Disponibility
 {
 public:
-    Disponibility(QGeoAddress, time_t, time_t);
+    Disponibility(QGeoAddress, QTime, QTime);
     ~Disponibility();
 
 
 private:
     QGeoAddress _address;
-    time_t _disponnibilityIntervalStart;
-    time_t _disponnibilityIntervalEnd;
+    QTime _disponnibilityIntervalStart;
+    QTime _disponnibilityIntervalEnd;
 
 };
 

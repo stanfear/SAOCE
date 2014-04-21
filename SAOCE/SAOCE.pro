@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     disponibility.cpp \
     participantslist.cpp \
     associationlist.cpp \
-    associationmotor.cpp
+    associationmotor.cpp \
+    dialogcreateparticipant.cpp \
+    treeitemparticipant.cpp
 
 HEADERS  += mainwindow.h \
     association.h \
@@ -27,6 +29,9 @@ HEADERS  += mainwindow.h \
     disponibility.h \
     participantslist.h \
     associationlist.h \
-    associationmotor.h
+    associationmotor.h \
+    dialogcreateparticipant.h \
+    treeitemparticipant.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialogcreateparticipant.ui

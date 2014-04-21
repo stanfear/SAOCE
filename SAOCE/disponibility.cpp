@@ -3,21 +3,13 @@
 #include <ctime>
 #include <string>
 
-Disponibility::Disponibility(QGeoAddress address, time_t intervalStart, time_t intervalEnd) :
+Disponibility::Disponibility(QGeoAddress address, QTime intervalStart, QTime intervalEnd) :
     _address(address), _disponnibilityIntervalStart(intervalStart), _disponnibilityIntervalEnd(intervalEnd)
 {
     std::clog << "Disponnibilite : Instantiating " ;
     std::clog << address.text().toUtf8().constData() << " - ";
-
-
-    struct tm * timeinfo;
-    timeinfo = localtime (&intervalEnd);
-    time_t timedispo = mktime(timeinfo);
-    std::clog << ctime(&timedispo);
-
-    timeinfo = localtime (&intervalStart);
-    timedispo = mktime(timeinfo);
-    std::clog << ctime(&timedispo) << std::endl;
+    std::clog << intervalStart.toString("[HH:mm:ss - ").toUtf8().constData();
+    std::clog << intervalEnd.toString("HH:mm:ss]").toUtf8().constData() << std::endl;
 }
 
 Disponibility::~Disponibility()

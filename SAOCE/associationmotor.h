@@ -11,6 +11,7 @@ class AssociationMotor
 public:
 
     AssociationList* _AssocList;
+    ParticipantsList* _PartList;
 
     AssociationMotor();
     ~AssociationMotor();
@@ -26,14 +27,11 @@ public:
     void ResetAssociationList();
 
 private:
-    ParticipantsList* _PartList;
     QList<Association*>* _AssocDictionnary;
 
     Association *findAssociation(Participant*, Participant*);
 
     void InitLists(QList<Participant*>*, QList<Participant*>*);
-    int CountDriversAssociation(Participant* participant);
-
 };
 
 #endif // ASSOCIATIONMOTOR_H

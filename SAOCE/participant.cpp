@@ -42,3 +42,27 @@ std::string Participant::ToString()
     return this->_name.toUtf8().constData() + separator +
            this->_lastName.toUtf8().constData();
 }
+
+QString Participant::GetFullName()
+{
+    return this->_name + " " + this->_lastName;
+}
+
+QString Participant::GetDisponnibilityString(int disp)
+{
+    if(disp >= this->_disponibilities->count() || disp < 0)
+        return "Unknown";
+
+    Disponibility *disponibility = this->_disponibilities->at(disp);
+    return disponibility->GetDetailedString();
+}
+
+int Participant::GetDipsonibilitiesCount()
+{
+    return _disponibilities->count();
+}
+
+Disponibility *Participant::GetDipsonibility(int nbr)
+{
+    return _disponibilities->at(nbr);
+}

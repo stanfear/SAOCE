@@ -20,6 +20,9 @@ private:
     Participant* _passenger;
     double _cost;
 
+    double GetCostDistance();
+    double GetCostTime();
+
 };
 
 #endif // ASSOCIATION_H

@@ -11,6 +11,9 @@ public:
     Disponibility(QGeoAddress, QTime, QTime);
     ~Disponibility();
 
+    QString GetDetailedString();
+    QTime getDispoStart();
+    QTime getDispoEnd();
 
 private:
     QGeoAddress _address;

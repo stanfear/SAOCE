@@ -16,6 +16,10 @@ public:
     std::string ToString();
 
     void AddDisponnibility(Disponibility*);
+    QString GetFullName();
+    QString GetDisponnibilityString(int disp);
+    int GetDipsonibilitiesCount();
+    Disponibility *GetDipsonibility(int nbr);
 
     private:
         QString _name;

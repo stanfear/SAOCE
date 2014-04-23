@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>835</width>
     <height>480</height>
    </rect>
   </property>
@@ -29,9 +29,12 @@
      <rect>
       <x>325</x>
       <y>5</y>
-      <width>310</width>
+      <width>500</width>
       <height>400</height>
      </rect>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="AddParticipant">
@@ -50,7 +53,7 @@
    <widget class="QPushButton" name="ResetAssociations">
     <property name="geometry">
      <rect>
-      <x>325</x>
+      <x>520</x>
       <y>410</y>
       <width>140</width>
       <height>30</height>
@@ -63,7 +66,7 @@
    <widget class="QPushButton" name="ComputeAssociations">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>660</x>
       <y>410</y>
       <width>165</width>
       <height>30</height>
@@ -86,27 +89,6 @@
      <string>Supprimer le participant</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>640</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFichier">
-    <property name="title">
-     <string>Fichier</string>
-    </property>
-    <addaction name="actionNouveau"/>
-    <addaction name="actionOuvrir"/>
-    <addaction name="actionSauvegarder"/>
-    <addaction name="separator"/>
-    <addaction name="actionQuitter"/>
-   </widget>
-   <addaction name="menuFichier"/>
   </widget>
   <action name="actionNouveau">
    <property name="text">

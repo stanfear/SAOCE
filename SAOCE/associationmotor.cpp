@@ -2,8 +2,15 @@
 
 AssociationMotor::AssociationMotor()
 {
-    _PartList = new ParticipantsList();
-    _AssocList = new AssociationList();
+
+    QStringList headersParticipant;
+    headersParticipant << "Detail" << "places Disponnibles";
+    _PartList = new ParticipantsList(headersParticipant, "");
+
+    QStringList headers;
+    headers << "Participant" << "Disponnibilité";
+
+    _AssocList = new AssociationList(headers, "");
     _AssocDictionnary = new QList<Association*> ();
 }
 
@@ -87,7 +94,7 @@ void AssociationMotor::ComputeAssociationsMethode1(QProgressDialog *progress)
         // la meilleur association possible (avec les participants restants) est utilisée
         _AssocList->_list->append(BestAssociaiton);
         // modification des listes de passagers et conducteurs restant
-        if(CountDriversAssociation(BestAssociaiton->GetDriver()) >= BestAssociaiton->GetDriver()->GetAvailablesPlacesCount())
+        if(_AssocList->CountDriversAssociation(BestAssociaiton->GetDriver()) >= BestAssociaiton->GetDriver()->GetAvailablesPlacesCount())
             Conducteurs->removeOne(BestAssociaiton->GetDriver());
         passagersRestant->removeOne(BestAssociaiton->GetPassenger());
 
@@ -95,7 +102,7 @@ void AssociationMotor::ComputeAssociationsMethode1(QProgressDialog *progress)
     }
 }
 
-void AssociationMotor::ComputeAssociationsMethode2(QProgressDialog *progress)
+void AssociationMotor::ComputeAssociationsMethode2(QProgressDialog */*progress*/)
 {}
 
 bool AssociationMotor::IsGlobalAssociationPossible()
@@ -108,7 +115,7 @@ bool AssociationMotor::IsGlobalAssociationPossible()
     for( int i=Conducteurs->count()-1; i>=0; i--)
     {
         Participant *cond = Conducteurs->at(i);
-        totalPlacesLeft = cond->GetAvailablesPlacesCount() - CountDriversAssociation(cond);
+        totalPlacesLeft = cond->GetAvailablesPlacesCount() - this->_AssocList->CountDriversAssociation(cond);
     }
     return totalPlacesLeft >= passagersRestant->count();
 }
@@ -116,7 +123,10 @@ bool AssociationMotor::IsGlobalAssociationPossible()
 void AssociationMotor::ResetAssociationList()
 {
     delete _AssocList;
-    _AssocList = new AssociationList();
+    QStringList headers;
+    headers << "Participant" << "Disponnibilité";
+
+    _AssocList = new AssociationList(headers, "");
 }
 
 Association *AssociationMotor::findAssociation(Participant* conducteur, Participant* passager)
@@ -170,7 +180,7 @@ void AssociationMotor::InitLists(QList<Participant*> *conducteurs, QList<Partici
         if(!par->HasCar())
             passagersRestant->append(par);
         else
-            if(CountDriversAssociation(par) < par->GetAvailablesPlacesCount())
+            if(this->_AssocList->CountDriversAssociation(par) < par->GetAvailablesPlacesCount())
                 conducteurs->append(par);
     }
 
@@ -182,16 +192,4 @@ void AssociationMotor::InitLists(QList<Participant*> *conducteurs, QList<Partici
     }
     // conducteurs contient une liste de conducteurs avec au moins une placce disponnible
     // passagers restant contient les passager restant a associer
-}
-
-int AssociationMotor::CountDriversAssociation(Participant* participant)
-{
-    int nb = 0;
-    for( int i=this->_AssocDictionnary->count()-1; i>=0; i--)
-    {
-        Association *assoc = this->_AssocDictionnary->at(i);
-        if(assoc->GetDriver() == participant)
-            nb ++;
-    }
-    return nb;
 }

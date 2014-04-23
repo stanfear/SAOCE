@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->ResetAssociations, SIGNAL(clicked()), this, SLOT(ResetAssociations_Click()));
     connect(ui->DeleteParticipant, SIGNAL(clicked()), this, SLOT(DeleteParticipant_Click()));
     connect(ui->ComputeAssociations, SIGNAL(clicked()), this, SLOT(ComputeAssociations_Click()));
+
+    ui->treeView_2->setModel(motor._AssocList);
+    ui->treeView->setModel(motor._PartList);
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +36,21 @@ void MainWindow::AddParticipant_Click()
         Participant *part = diag.GetGeneratedParticipant();
         motor.AddParticipant(part);
     }
+
+    motor._PartList->UpdateDataFromScratch();
+    ui->treeView->reset();
+
+}
+
+
+void MainWindow::DeleteParticipant_Click()
+{
+    QModelIndex index = ui->treeView->selectionModel()->currentIndex();
+    this->motor._PartList->RemoveParticipant(index);
+
+
+    motor._PartList->UpdateDataFromScratch();
+    ui->treeView->reset();
 }
 
 void MainWindow::ResetAssociations_Click()
@@ -47,11 +65,15 @@ void MainWindow::ResetAssociations_Click()
 
     if(ret == QMessageBox::Ok) // Ok was clicked
         motor.ResetAssociationList();
+
+    ui->treeView_2->setModel(motor._AssocList);
+    motor._AssocList->UpdateDataFromScratch();
+    ui->treeView_2->reset();
 }
 
 void MainWindow::ComputeAssociations_Click()
 {
-    QProgressDialog *progress = new QProgressDialog("Copying files...", "Abort Copy", 0, 100, this);
+    QProgressDialog *progress = new QProgressDialog("Computing Associations", "Abort Computing", 0, 100, this);
     progress->setWindowModality(Qt::WindowModal);
 
     progress->show();
@@ -67,8 +89,7 @@ void MainWindow::ComputeAssociations_Click()
 
     progress->setValue(100);
     delete progress;
-}
 
-void MainWindow::DeleteParticipant_Click()
-{
+    motor._AssocList->UpdateDataFromScratch();
+    ui->treeView_2->reset();
 }
